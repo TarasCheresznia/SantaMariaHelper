@@ -1,0 +1,6 @@
+name = "santa-maria-helper-api"
+main = "worker.js"
+compatibility_date = "2026-10-01"
+
+[vars]
+MODEL = "openai/gpt-oss-20b"

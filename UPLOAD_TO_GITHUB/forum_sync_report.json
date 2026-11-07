@@ -1,0 +1,256 @@
+{
+  "updated_utc": "2026-10-24T00:22:37.952198+00:00",
+  "sections_ok": [
+    "Общие правила",
+    "Государственные организации",
+    "Криминальные организации",
+    "Семейные организации"
+  ],
+  "topics_in_cache": 34,
+  "topics_seen_now": 34,
+  "rules_in_cache": 942,
+  "forum_root": "https://forum.santamaria-rp.com",
+  "sources": {
+    "Общие правила": "https://forum.santamaria-rp.com/forums/Общие-правила-сервера.93/",
+    "Государственные организации": "https://forum.santamaria-rp.com/forums/Правила-государственных-организаций.43/",
+    "Криминальные организации": "https://forum.santamaria-rp.com/forums/Правила-криминальных-организаций.42/",
+    "Семейные организации": "https://forum.santamaria-rp.com/forums/Правила-семейных-организаций.86/"
+  },
+  "complete": true,
+  "errors": [],
+  "section_audit": {
+    "Общие правила": {
+      "discovered": 34,
+      "downloaded": 34,
+      "failed": 0,
+      "topics": [
+        {
+          "title": "Общие правила сервера",
+          "url": "https://forum.santamaria-rp.com/threads/%D0%9E%D0%B1%D1%89%D0%B8%D0%B5-%D0%BF%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80%D0%B0.192/",
+          "records": 72,
+          "status": "ok"
+        },
+        {
+          "title": "Правила форума",
+          "url": "https://forum.santamaria-rp.com/threads/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D1%84%D0%BE%D1%80%D1%83%D0%BC%D0%B0.51/",
+          "records": 39,
+          "status": "ok"
+        },
+        {
+          "title": "Правила поставок для Гос. и Крайм организаций",
+          "url": "https://forum.santamaria-rp.com/threads/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D0%BF%D0%BE%D1%81%D1%82%D0%B0%D0%B2%D0%BE%D0%BA-%D0%B4%D0%BB%D1%8F-%D0%93%D0%BE%D1%81-%D0%B8-%D0%9A%D1%80%D0%B0%D0%B9%D0%BC-%D0%BE%D1%80%D0%B3%D0%B0%D0%BD%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B9.655/",
+          "records": 59,
+          "status": "ok"
+        },
+        {
+          "title": "Правила проведения ВЗП (Война за предприятия)",
+          "url": "https://forum.santamaria-rp.com/threads/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F-%D0%92%D0%97%D0%9F-%D0%92%D0%BE%D0%B9%D0%BD%D0%B0-%D0%B7%D0%B0-%D0%BF%D1%80%D0%B5%D0%B4%D0%BF%D1%80%D0%B8%D1%8F%D1%82%D0%B8%D1%8F.2336/",
+          "records": 23,
+          "status": "ok"
+        },
+        {
+          "title": "Правила нападения на Army LV для Криминальных организаций",
+          "url": "https://forum.santamaria-rp.com/threads/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D0%BD%D0%B0%D0%BF%D0%B0%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F-%D0%BD%D0%B0-army-lv-%D0%B4%D0%BB%D1%8F-%D0%9A%D1%80%D0%B8%D0%BC%D0%B8%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D1%85-%D0%BE%D1%80%D0%B3%D0%B0%D0%BD%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B9.4424/",
+          "records": 38,
+          "status": "ok"
+        },
+        {
+          "title": "Правила ограбления Ammu-Nation",
+          "url": "https://forum.santamaria-rp.com/threads/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D0%BE%D0%B3%D1%80%D0%B0%D0%B1%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F-ammu-nation.4994/",
+          "records": 18,
+          "status": "ok"
+        },
+        {
+          "title": "Правила для Лидеров Гос. организаций",
+          "url": "https://forum.santamaria-rp.com/threads/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D0%B4%D0%BB%D1%8F-%D0%9B%D0%B8%D0%B4%D0%B5%D1%80%D0%BE%D0%B2-%D0%93%D0%BE%D1%81-%D0%BE%D1%80%D0%B3%D0%B0%D0%BD%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B9.4892/",
+          "records": 46,
+          "status": "ok"
+        },
+        {
+          "title": "Правила войны за AirDrop",
+          "url": "https://forum.santamaria-rp.com/threads/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D0%B2%D0%BE%D0%B9%D0%BD%D1%8B-%D0%B7%D0%B0-airdrop.1603/",
+          "records": 25,
+          "status": "ok"
+        },
+        {
+          "title": "Правила проведения ВЗХ.",
+          "url": "https://forum.santamaria-rp.com/threads/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F-%D0%92%D0%97%D0%A5.2031/",
+          "records": 19,
+          "status": "ok"
+        },
+        {
+          "title": "Правила лидеров криминальных организаций",
+          "url": "https://forum.santamaria-rp.com/threads/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D0%BB%D0%B8%D0%B4%D0%B5%D1%80%D0%BE%D0%B2-%D0%BA%D1%80%D0%B8%D0%BC%D0%B8%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D1%85-%D0%BE%D1%80%D0%B3%D0%B0%D0%BD%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B9.209/",
+          "records": 27,
+          "status": "ok"
+        },
+        {
+          "title": "Правила проведения военного положения",
+          "url": "https://forum.santamaria-rp.com/threads/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F-%D0%B2%D0%BE%D0%B5%D0%BD%D0%BD%D0%BE%D0%B3%D0%BE-%D0%BF%D0%BE%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F.2974/",
+          "records": 10,
+          "status": "ok"
+        },
+        {
+          "title": "Правила проведения проверок на читы.",
+          "url": "https://forum.santamaria-rp.com/threads/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F-%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%BE%D0%BA-%D0%BD%D0%B0-%D1%87%D0%B8%D1%82%D1%8B.1944/",
+          "records": 12,
+          "status": "ok"
+        },
+        {
+          "title": "Правила государственных организаций",
+          "url": "https://forum.santamaria-rp.com/threads/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D0%B3%D0%BE%D1%81%D1%83%D0%B4%D0%B0%D1%80%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D1%85-%D0%BE%D1%80%D0%B3%D0%B0%D0%BD%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B9.4803/",
+          "records": 85,
+          "status": "ok"
+        },
+        {
+          "title": "RP Отыгровки для ГОС структур",
+          "url": "https://forum.santamaria-rp.com/threads/rp-%D0%9E%D1%82%D1%8B%D0%B3%D1%80%D0%BE%D0%B2%D0%BA%D0%B8-%D0%B4%D0%BB%D1%8F-%D0%93%D0%9E%D0%A1-%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80.3111/",
+          "records": 18,
+          "status": "ok"
+        },
+        {
+          "title": "Правила проведения допросов",
+          "url": "https://forum.santamaria-rp.com/threads/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F-%D0%B4%D0%BE%D0%BF%D1%80%D0%BE%D1%81%D0%BE%D0%B2.7446/",
+          "records": 9,
+          "status": "ok"
+        },
+        {
+          "title": "Правила повышений в государственных структурах",
+          "url": "https://forum.santamaria-rp.com/threads/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D0%BF%D0%BE%D0%B2%D1%8B%D1%88%D0%B5%D0%BD%D0%B8%D0%B9-%D0%B2-%D0%B3%D0%BE%D1%81%D1%83%D0%B4%D0%B0%D1%80%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D1%85-%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D0%B0%D1%85.6594/",
+          "records": 7,
+          "status": "ok"
+        },
+        {
+          "title": "Правила проведения рейдов",
+          "url": "https://forum.santamaria-rp.com/threads/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F-%D1%80%D0%B5%D0%B9%D0%B4%D0%BE%D0%B2.6510/",
+          "records": 24,
+          "status": "ok"
+        },
+        {
+          "title": "Правила внедрения в криминальные организации",
+          "url": "https://forum.santamaria-rp.com/threads/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D0%B2%D0%BD%D0%B5%D0%B4%D1%80%D0%B5%D0%BD%D0%B8%D1%8F-%D0%B2-%D0%BA%D1%80%D0%B8%D0%BC%D0%B8%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5-%D0%BE%D1%80%D0%B3%D0%B0%D0%BD%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8.6509/",
+          "records": 15,
+          "status": "ok"
+        },
+        {
+          "title": "Правила восстановления и переводов между организациями",
+          "url": "https://forum.santamaria-rp.com/threads/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D0%B2%D0%BE%D1%81%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F-%D0%B8-%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D0%BE%D0%B2-%D0%BC%D0%B5%D0%B6%D0%B4%D1%83-%D0%BE%D1%80%D0%B3%D0%B0%D0%BD%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F%D0%BC%D0%B8.6504/",
+          "records": 4,
+          "status": "ok"
+        },
+        {
+          "title": "Правила публикации и ведения Кейс-файлов",
+          "url": "https://forum.santamaria-rp.com/threads/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D0%B8-%D0%B8-%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F-%D0%9A%D0%B5%D0%B9%D1%81-%D1%84%D0%B0%D0%B9%D0%BB%D0%BE%D0%B2.4951/",
+          "records": 85,
+          "status": "ok"
+        },
+        {
+          "title": "NonRP действия для сотрудников государственных структур",
+          "url": "https://forum.santamaria-rp.com/threads/nonrp-%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F-%D0%B4%D0%BB%D1%8F-%D1%81%D0%BE%D1%82%D1%80%D1%83%D0%B4%D0%BD%D0%B8%D0%BA%D0%BE%D0%B2-%D0%B3%D0%BE%D1%81%D1%83%D0%B4%D0%B0%D1%80%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D1%85-%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80.793/",
+          "records": 33,
+          "status": "ok"
+        },
+        {
+          "title": "Правила войны за районы для Мафии",
+          "url": "https://forum.santamaria-rp.com/threads/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D0%B2%D0%BE%D0%B9%D0%BD%D1%8B-%D0%B7%D0%B0-%D1%80%D0%B0%D0%B9%D0%BE%D0%BD%D1%8B-%D0%B4%D0%BB%D1%8F-%D0%9C%D0%B0%D1%84%D0%B8%D0%B8.4496/",
+          "records": 16,
+          "status": "ok"
+        },
+        {
+          "title": "Правила проведения войны за территорию (Capture)",
+          "url": "https://forum.santamaria-rp.com/threads/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F-%D0%B2%D0%BE%D0%B9%D0%BD%D1%8B-%D0%B7%D0%B0-%D1%82%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8E-capture.3043/",
+          "records": 35,
+          "status": "ok"
+        },
+        {
+          "title": "Общие правила Ghetto.",
+          "url": "https://forum.santamaria-rp.com/threads/%D0%9E%D0%B1%D1%89%D0%B8%D0%B5-%D0%BF%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-ghetto.193/",
+          "records": 26,
+          "status": "ok"
+        },
+        {
+          "title": "Общие правила Мафии",
+          "url": "https://forum.santamaria-rp.com/threads/%D0%9E%D0%B1%D1%89%D0%B8%D0%B5-%D0%BF%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D0%9C%D0%B0%D1%84%D0%B8%D0%B8.4494/",
+          "records": 49,
+          "status": "ok"
+        },
+        {
+          "title": "Правила похищений/ограблений.",
+          "url": "https://forum.santamaria-rp.com/threads/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D0%BF%D0%BE%D1%85%D0%B8%D1%89%D0%B5%D0%BD%D0%B8%D0%B9-%D0%BE%D0%B3%D1%80%D0%B0%D0%B1%D0%BB%D0%B5%D0%BD%D0%B8%D0%B9.201/",
+          "records": 39,
+          "status": "ok"
+        },
+        {
+          "title": "Правила проведения RP Стрел.",
+          "url": "https://forum.santamaria-rp.com/threads/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F-rp-%D0%A1%D1%82%D1%80%D0%B5%D0%BB.199/",
+          "records": 14,
+          "status": "ok"
+        },
+        {
+          "title": "Правила Graffiti Wars.",
+          "url": "https://forum.santamaria-rp.com/threads/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-graffiti-wars.195/",
+          "records": 9,
+          "status": "ok"
+        },
+        {
+          "title": "Общая информация и правила Наркопритонов.",
+          "url": "https://forum.santamaria-rp.com/threads/%D0%9E%D0%B1%D1%89%D0%B0%D1%8F-%D0%B8%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D1%8F-%D0%B8-%D0%BF%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D0%9D%D0%B0%D1%80%D0%BA%D0%BE%D0%BF%D1%80%D0%B8%D1%82%D0%BE%D0%BD%D0%BE%D0%B2.197/",
+          "records": 7,
+          "status": "ok"
+        },
+        {
+          "title": "Правила проведения Терактов.",
+          "url": "https://forum.santamaria-rp.com/threads/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F-%D0%A2%D0%B5%D1%80%D0%B0%D0%BA%D1%82%D0%BE%D0%B2.202/",
+          "records": 19,
+          "status": "ok"
+        },
+        {
+          "title": "Заявки и Правила возврата территорий.",
+          "url": "https://forum.santamaria-rp.com/threads/%D0%97%D0%B0%D1%8F%D0%B2%D0%BA%D0%B8-%D0%B8-%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D0%B2%D0%BE%D0%B7%D0%B2%D1%80%D0%B0%D1%82%D0%B0-%D1%82%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D0%B9.203/",
+          "records": 6,
+          "status": "ok"
+        },
+        {
+          "title": "Правила семейных стрел",
+          "url": "https://forum.santamaria-rp.com/threads/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D1%81%D0%B5%D0%BC%D0%B5%D0%B9%D0%BD%D1%8B%D1%85-%D1%81%D1%82%D1%80%D0%B5%D0%BB.3165/",
+          "records": 39,
+          "status": "ok"
+        },
+        {
+          "title": "Общие правила семейных организаций",
+          "url": "https://forum.santamaria-rp.com/threads/%D0%9E%D0%B1%D1%89%D0%B8%D0%B5-%D0%BF%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D1%81%D0%B5%D0%BC%D0%B5%D0%B9%D0%BD%D1%8B%D1%85-%D0%BE%D1%80%D0%B3%D0%B0%D0%BD%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B9.5718/",
+          "records": 10,
+          "status": "ok"
+        },
+        {
+          "title": "Заявки и Правила возврата бизнесов",
+          "url": "https://forum.santamaria-rp.com/threads/%D0%97%D0%B0%D1%8F%D0%B2%D0%BA%D0%B8-%D0%B8-%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D0%B2%D0%BE%D0%B7%D0%B2%D1%80%D0%B0%D1%82%D0%B0-%D0%B1%D0%B8%D0%B7%D0%BD%D0%B5%D1%81%D0%BE%D0%B2.6087/",
+          "records": 5,
+          "status": "ok"
+        }
+      ]
+    },
+    "Государственные организации": {
+      "discovered": 9,
+      "downloaded": 0,
+      "failed": 0,
+      "topics": [],
+      "already_seen": 9
+    },
+    "Криминальные организации": {
+      "discovered": 10,
+      "downloaded": 0,
+      "failed": 0,
+      "topics": [],
+      "already_seen": 10
+    },
+    "Семейные организации": {
+      "discovered": 3,
+      "downloaded": 0,
+      "failed": 0,
+      "topics": [],
+      "already_seen": 3
+    }
+  },
+  "note": "complete означает успешную обработку обнаруженных публичных тем, а не гарантию доступа ко всем правилам форума"
+}

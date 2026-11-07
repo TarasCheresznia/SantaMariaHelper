@@ -1,0 +1,37 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+const code=fs.readFileSync(new URL('../cloudflare-worker/worker.js',import.meta.url),'utf8');
+const worker=(await import('data:text/javascript;base64,'+Buffer.from(code).toString('base64'))).default;
+const old=globalThis.fetch;
+let scripted=[], requests=[];
+globalThis.fetch=async (_url,options)=>{
+ requests.push(JSON.parse(options.body));
+ const next=scripted.shift();
+ return {ok:true,json:async()=>({choices:[{message:{content:JSON.stringify(next)}}]})};
+};
+const env={GROQ_API_KEY:'test-only'};
+async function post(path,payload){const r=await worker.fetch(new Request('https://example.com'+path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}),env);return {http:r.status,body:await r.json()}}
+const health=await worker.fetch(new Request('https://example.com/health'),env);
+assert.equal((await health.json()).version,'33');
+scripted.push({intent:'союз на поставке',search_queries:['IC союзы при перехвате поставок','поставки союзы'],relevant_topics:['Правила поставок для Гос. и Крайм организаций'],question_type:'situation'});
+let x=await post('/interpret',{question:'Союз на поставке',topics:['Правила поставок для Гос. и Крайм организаций']});
+assert.equal(x.http,200);assert.equal(x.body.search_queries.length,2);
+assert.equal(requests[0].messages[1].role,'user');
+const rule={id:'7',topic:'Правила поставок для Гос. и Крайм организаций',section:'Совместные мероприятия',url:'https://forum.santamaria-rp.com/threads/demo.1/',text:'7. Запрещены любые IC союзы. | Jail 45-60 min'};
+scripted.push({status:'verified',answer:'На поставках запрещены IC союзы. По пункту 7 возможен Jail 45–60 минут.',cited_keys:['R1'],command_keys:[]});
+x=await post('/answer',{question:'Разрешено объединиться на поставке?',materials:{rules:[rule],commands:[]}});
+assert.equal(x.body.status,'verified');assert.equal(x.body.rules[0].url,rule.url);
+scripted.push({status:'verified',answer:'Выдуманное наказание',cited_keys:['R555'],command_keys:[]});
+x=await post('/answer',{question:'Что будет?',materials:{rules:[rule],commands:[]}});
+assert.equal(x.body.status,'insufficient_evidence');
+scripted.push({status:'clarification',answer:'',clarification:'На каком мероприятии?',cited_keys:[]});
+x=await post('/answer',{question:'Можно союз?',materials:{rules:[rule],commands:[]}});
+assert.equal(x.body.status,'clarification');assert.match(x.body.clarification,/мероприятии/);
+scripted.push({status:'general',answer:'DM — deathmatch, причинение вреда без причины.',cited_keys:[],command_keys:[]});
+x=await post('/answer',{question:'Что значит DM?',materials:{rules:[],commands:[]}});
+assert.equal(x.body.status,'general');assert.equal(x.body.rules.length,0);
+scripted.push({status:'verified',answer:'Команда /givemedia позволяет выдать медиа игроку.',cited_keys:[],command_keys:['C1']});
+x=await post('/answer',{question:'Для чего /givemedia?',materials:{rules:[],commands:[{command:'/givemedia',description:'выдать медиа игроку'}]}});
+assert.equal(x.body.status,'verified');assert.equal(x.body.commands[0].command,'/givemedia');
+globalThis.fetch=old;
+console.log('V33 Worker mock tests PASSED (health, intent, citation, hallucination, clarification, general knowledge, commands)');

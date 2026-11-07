@@ -1,0 +1,21 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+let source=fs.readFileSync(new URL('../cloudflare-worker/worker.js',import.meta.url),'utf8');
+let upstream=0;
+globalThis.fetch=async (_url,opts)=>{
+ upstream++;
+ const req=JSON.parse(opts.body), question=JSON.parse(req.messages[1].content).question;
+ if(question==='цвет одежды') return new Response(JSON.stringify({choices:[{message:{content:JSON.stringify({status:'clarification',clarification:'О какой организации или мероприятии речь?',cited_keys:[]})}}]}),{status:200});
+ if(question==='связь гос с краймом')return new Response(JSON.stringify({choices:[{message:{content:JSON.stringify({status:'verified',answer:'В правилах ГОС запрещены определённые связи с криминальным миром.',cited_keys:['R1'],command_keys:[]})}}]}),{status:200});
+ return new Response(JSON.stringify({choices:[{message:{content:JSON.stringify({status:'verified',answer:'Нельзя просто утверждать',cited_keys:['R999']})}}]}),{status:200});
+};
+const worker=(await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'))).default;
+let rules=[{id:'5',topic:'Общие правила сервера',section:'Общие правила',url:'https://forum.santamaria-rp.com/threads/192',text:'5.7 Запрещено убийство без причины (DM) — JAIL 75-120 минут.'},{id:'2',topic:'Общие правила сервера',section:'Общие правила',url:'https://forum.santamaria-rp.com/threads/192',text:'2. Терминология\nDM - убийство без причины.\nDB - нанесение урона транспортом.'}];
+const run=async(q,rulesArg=rules)=>{let res=await worker.fetch(new Request('https://worker.example/answer',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({question:q,materials:{rules:rulesArg,commands:[]}})}),{GROQ_API_KEY:'test'});assert.equal(res.status,200);return await res.json()};
+let x=await run('Dm');assert.equal(x.status,'verified');assert.match(x.answer,/убийство без причины/);assert.equal(x.rules.length,1);assert.equal(upstream,0);
+x=await run('что такое DM?');assert.equal(x.status,'verified');assert.equal(upstream,0);
+x=await run('цвет одежды');assert.equal(x.status,'clarification');assert.match(x.clarification,/организации/);
+x=await run('связь гос с краймом',[{id:'24',topic:'Правила государственных организаций',url:'https://forum.santamaria-rp.com/test',text:'24. Сотрудникам ГОС запрещено иметь связи с криминальным миром.'}]);assert.equal(x.status,'verified');assert.equal(x.rules.length,1);
+x=await run('абсолютно неподтверждённый ответ');assert.equal(x.status,'insufficient_evidence');
+let h=await worker.fetch(new Request('https://worker.example/health'),{GROQ_API_KEY:'test'});assert.equal((await h.json()).version,'28');
+console.log('6 integration scenarios OK; mocked Groq, no live network');

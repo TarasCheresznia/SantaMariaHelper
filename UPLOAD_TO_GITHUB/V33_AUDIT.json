@@ -1,0 +1,18 @@
+{
+  "version": "33.0.0",
+  "rules_total": 942,
+  "topics": 34,
+  "sections": {
+    "Общие правила": 111,
+    "Совместные мероприятия": 144,
+    "Криминальные организации": 285,
+    "Государственные организации": 336,
+    "Дополнительные правила": 12,
+    "Семейные организации": 54
+  },
+  "unnumbered_records": 12,
+  "commands_total_unique": 188,
+  "new_commands_screenshot_source": 80,
+  "rule_source": "locally included forum_rules.json, no live completeness guarantee",
+  "tests": "23 Python unit tests + mocked Worker tests; Windows GUI and live Groq not tested"
+}

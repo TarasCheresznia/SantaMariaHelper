@@ -1,0 +1,1022 @@
+[
+  {
+    "command": "/a",
+    "description": "админ чат",
+    "level": 4
+  },
+  {
+    "command": "/acceptbonus",
+    "description": "одобрить выдачу премии",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/acceptdisband",
+    "description": "одобрить расформирование банды",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/acheat",
+    "description": "античит",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/acreatepromo",
+    "description": "привязать промо к игроку",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/acreatoromo",
+    "description": "привязать промо к игроку",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/addobject",
+    "description": "добавить объект",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/admincheck",
+    "description": "включить/выключить панель вызова на проверку",
+    "level": 4
+  },
+  {
+    "command": "/admins",
+    "description": "список админов онлайн",
+    "level": 4
+  },
+  {
+    "command": "/adminstats",
+    "description": "статистика админов",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/aduty",
+    "description": "начать/завершить смену в гос. орг",
+    "level": 4
+  },
+  {
+    "command": "/aengine",
+    "description": "запустить/заглушить двигатель любого транспорта",
+    "level": 4
+  },
+  {
+    "command": "/afreeze",
+    "description": "заморозить/разморозить игрока",
+    "level": 4
+  },
+  {
+    "command": "/aglock",
+    "description": "закрыть/открыть гараж",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/ahelp",
+    "description": "список админ команд",
+    "level": 4
+  },
+  {
+    "command": "/ain",
+    "description": "тихо вступить во фракцию",
+    "level": 4
+  },
+  {
+    "command": "/alist",
+    "description": "список админов",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/alock",
+    "description": "открыть/закрыть двери любого транспорта",
+    "level": 4
+  },
+  {
+    "command": "/alog",
+    "description": "показать админ лог",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/alogin",
+    "description": "авторизоваться (реднейм)",
+    "level": 4
+  },
+  {
+    "command": "/ans",
+    "description": "ответить на репорт",
+    "level": 4
+  },
+  {
+    "command": "/answer",
+    "description": "ответить на репорт",
+    "level": 4
+  },
+  {
+    "command": "/antislide",
+    "description": "anti-slide: /antislide [SID] [cooldown] включить, /antislide [SID] выключить",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/asearch",
+    "description": "тихо обыскать игрока",
+    "level": 4
+  },
+  {
+    "command": "/asellbiz",
+    "description": "продать бизнес",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/asellcar",
+    "description": "продать машину",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/asellhouse",
+    "description": "продать дом",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/aun",
+    "description": "уволить игрока с фракции",
+    "level": 4
+  },
+  {
+    "command": "/avaccine",
+    "description": "вакцинировать игрока (иммунитет 5 часов)",
+    "level": 4
+  },
+  {
+    "command": "/ban",
+    "description": "выдать бан игроку",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/banip",
+    "description": "заблокировать IP",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/bansoc",
+    "description": "заблокировать Social ID",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/bfs",
+    "description": "настройки семейных стрел",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/bizfsettings",
+    "description": "настройки семейных стрел",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/capturesettings",
+    "description": "настройки каптов",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/cc",
+    "description": "очистить чат",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/checkhit",
+    "description": "проверить хитбоксы игрока",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/checkx2",
+    "description": "проверить x2 урон игрока",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/chname",
+    "description": "сменить ник игроку",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/clearcontrols",
+    "description": "очистить запреты на действия игрока",
+    "level": 4
+  },
+  {
+    "command": "/clearobject",
+    "description": "удалить объекты в радиусе",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/clearobjects",
+    "description": "удалить объекты в радиусе",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/cup",
+    "description": "панель SMRP CUP",
+    "level": 4
+  },
+  {
+    "command": "/cupgh",
+    "description": "телепортировать игроков к себе",
+    "level": 4
+  },
+  {
+    "command": "/deladmin",
+    "description": "снять админ права с игрока",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/delarenalobby",
+    "description": "удалить лобби",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/delleader",
+    "description": "снять игрока с лидера фракции",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/delveh",
+    "description": "удалить админ транспорт",
+    "level": 4
+  },
+  {
+    "command": "/dimension",
+    "description": "установить себе дименшин",
+    "level": 4
+  },
+  {
+    "command": "/dimmsg",
+    "description": "отправить сообщение для всех игроков в дименшине",
+    "level": 4
+  },
+  {
+    "command": "/dl",
+    "description": "показать/скрыть инфо о транспорте",
+    "level": 4
+  },
+  {
+    "command": "/dmute",
+    "description": "выдать молчанку игроку на определенное количество дней",
+    "level": 4
+  },
+  {
+    "command": "/endcapture",
+    "description": "завершить войну за территорию",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/endlive",
+    "description": "завершить трансляцию",
+    "level": 4
+  },
+  {
+    "command": "/esp",
+    "description": "включить/выключить ESP",
+    "level": 4
+  },
+  {
+    "command": "/famin",
+    "description": "вступить во в семью тихо",
+    "level": 4
+  },
+  {
+    "command": "/famstats",
+    "description": "информация о семьях",
+    "level": 4
+  },
+  {
+    "command": "/faun",
+    "description": "уволить игрока с семьи",
+    "level": 4
+  },
+  {
+    "command": "/fid",
+    "description": "найти игрока по id",
+    "level": 4
+  },
+  {
+    "command": "/fix",
+    "description": "починить авто",
+    "level": 4
+  },
+  {
+    "command": "/flipveh",
+    "description": "перевернуть транспорт",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/freeze",
+    "description": "заморозить/разморозить себя",
+    "level": 4
+  },
+  {
+    "command": "/freezedist",
+    "description": "заморозить/разморозить игроков и т/с в радиусе",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/fuelcars",
+    "description": "заправить транспорт в радиусе 50 метров",
+    "level": 4
+  },
+  {
+    "command": "/fz",
+    "description": "заморозить/разморозить себя",
+    "level": 4
+  },
+  {
+    "command": "/fzdist",
+    "description": "заморозить/разморозить игроков и т/с в радиусе",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/gethere",
+    "description": "телепортировать игрока к себе",
+    "level": 4
+  },
+  {
+    "command": "/getveh",
+    "description": "телепорт транспорта к себе",
+    "level": 4
+  },
+  {
+    "command": "/gh",
+    "description": "телепортировать игрока к себе",
+    "level": 4
+  },
+  {
+    "command": "/giveadmin",
+    "description": "выдать админку игроку",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/givegun",
+    "description": "выдать игроку оружие",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/givekeys",
+    "description": "выдать кейс игроку",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/givemedia",
+    "description": "выдать медиа игроку",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/giveneed",
+    "description": "пополнить потребности игрока",
+    "level": 4
+  },
+  {
+    "command": "/giveticket",
+    "description": "выдать билет игроку",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/givewarehouse",
+    "description": "выдать материалы на склады",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/go",
+    "description": "телепортироваться к игроку",
+    "level": 4
+  },
+  {
+    "command": "/goto",
+    "description": "телепортироваться к игроку",
+    "level": 4
+  },
+  {
+    "command": "/gotocar",
+    "description": "тп к транспорту",
+    "level": 4
+  },
+  {
+    "command": "/greenzone",
+    "description": "включить/выключить зеленую зону",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/gtp",
+    "description": "глобальная телепортация на мп",
+    "level": 4
+  },
+  {
+    "command": "/gunban",
+    "description": "выдать запрет на оружие игроку",
+    "level": 4
+  },
+  {
+    "command": "/gzcolor",
+    "description": "перекрасить территорию",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/history",
+    "description": "показать историю игрока",
+    "level": 4
+  },
+  {
+    "command": "/hlock",
+    "description": "закрыть/открыть дом",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/invize",
+    "description": "режим прозрачности",
+    "level": 4
+  },
+  {
+    "command": "/ip",
+    "description": "показать ip и socialClub игрока",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/jail",
+    "description": "посадить игрока в тюрьму",
+    "level": 4
+  },
+  {
+    "command": "/jailtime",
+    "description": "показать оставшееся время в тюрьме/деморгане",
+    "level": 4
+  },
+  {
+    "command": "/jobhistory",
+    "description": "показать историю работы игрока",
+    "level": 4
+  },
+  {
+    "command": "/kick",
+    "description": "отключить игрока с сервера",
+    "level": 4
+  },
+  {
+    "command": "/killist",
+    "description": "включить/выключить килллист",
+    "level": 4
+  },
+  {
+    "command": "/loadzone",
+    "description": "меню загрузки / выгрузки кастомных зон",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/makeadmin",
+    "description": "выдать админку игроку",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/makemedia",
+    "description": "выдать медиа игроку",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/mp",
+    "description": "управление админ мероприятием",
+    "level": 4
+  },
+  {
+    "command": "/msg",
+    "description": "отправить сообщение для всех игроков",
+    "level": 4
+  },
+  {
+    "command": "/mute",
+    "description": "выдать бан чата",
+    "level": 4
+  },
+  {
+    "command": "/muterep",
+    "description": "выдать мут репорта (10-90 мин)",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/needs",
+    "description": "восстановить себе потребности",
+    "level": 4
+  },
+  {
+    "command": "/new",
+    "description": "показать новые игроки",
+    "level": 4
+  },
+  {
+    "command": "/nicks",
+    "description": "показать никнеймы игрока",
+    "level": 4
+  },
+  {
+    "command": "/objectmenu",
+    "description": "меню админских объектов",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/offban",
+    "description": "выдать бан игроку который в оффлайн",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/offgiveadmin",
+    "description": "выдать админку игроку в оффлайн",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/offgivekeys",
+    "description": "выдать кейс игроку оффлайн",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/offgivemedia",
+    "description": "снять медиа с игрока",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/offjailtime",
+    "description": "показать оставшееся время в тюрьме/деморгане игрока который в оффлайн",
+    "level": 4
+  },
+  {
+    "command": "/offjobhistory",
+    "description": "показать историю работы игрока который в оффлайн",
+    "level": 4
+  },
+  {
+    "command": "/offmakeadmin",
+    "description": "выдать админку игроку в оффлайн",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/offmakemedia",
+    "description": "снять медиа с игрока",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/offmessage",
+    "description": "отправить сообщение игроку который в оффлайн",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/offmute",
+    "description": "выдать бан чата в оффлайне",
+    "level": 4
+  },
+  {
+    "command": "/offstats",
+    "description": "показать статистику персонажа",
+    "level": 4
+  },
+  {
+    "command": "/offunban",
+    "description": "снять бан с игрока который в оффлайн",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/offungunban",
+    "description": "снять запрет на оружие у игрока который в оффлайн",
+    "level": 4
+  },
+  {
+    "command": "/offunwarn",
+    "description": "снять предупреждение у игрока который в оффлайн",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/orgstat",
+    "description": "список лидеров",
+    "level": 4
+  },
+  {
+    "command": "/pcheck",
+    "description": "просмотреть активные наказания",
+    "level": 4
+  },
+  {
+    "command": "/refinfo",
+    "description": "просмотреть рефералов",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/removeobject",
+    "description": "удалить ближайший объект или объект по ID",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/repairveh",
+    "description": "починить авто",
+    "level": 4
+  },
+  {
+    "command": "/repmute",
+    "description": "выдать бан чата, войса и репортов",
+    "level": 4
+  },
+  {
+    "command": "/res",
+    "description": "зареспавнить авто в радиусе/на сервере",
+    "level": 4
+  },
+  {
+    "command": "/rescue",
+    "description": "возродить игрока",
+    "level": 4
+  },
+  {
+    "command": "/resetgun",
+    "description": "обезоружить игрока",
+    "level": 4
+  },
+  {
+    "command": "/resetmakeup",
+    "description": "сбросить макияж игроку",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/returnpos",
+    "description": "вернуть игрока обратно где был до /gethere",
+    "level": 4
+  },
+  {
+    "command": "/rf",
+    "description": "прослушка радиопереговоров во фракции (каналы /r, /rb)",
+    "level": 4
+  },
+  {
+    "command": "/rgivegun",
+    "description": "выдать оружие игрокам в радиусе",
+    "level": 4
+  },
+  {
+    "command": "/rgiveneed",
+    "description": "пополнить потребности игроков в радиусе",
+    "level": 4
+  },
+  {
+    "command": "/rr",
+    "description": "ответить на репорт",
+    "level": 4
+  },
+  {
+    "command": "/rrescue",
+    "description": "возродить игроков в радиусе",
+    "level": 4
+  },
+  {
+    "command": "/rsms",
+    "description": "прослушка sms",
+    "level": 4
+  },
+  {
+    "command": "/rspawnplayer",
+    "description": "отправить игроков на спавн в радиусе",
+    "level": 4
+  },
+  {
+    "command": "/rspp",
+    "description": "отправить игроков на спавн в радиусе",
+    "level": 4
+  },
+  {
+    "command": "/rtf",
+    "description": "прослушка радиопереговоров во фракциях по типу (каналы /r, /rb)",
+    "level": 4
+  },
+  {
+    "command": "/sdd",
+    "description": "просмотреть статистику урона по SID",
+    "level": 4
+  },
+  {
+    "command": "/setarmor",
+    "description": "установить игроку уровень брони",
+    "level": 4
+  },
+  {
+    "command": "/setdimension",
+    "description": "установить игроку дименшин",
+    "level": 4
+  },
+  {
+    "command": "/sethp",
+    "description": "установить игроку уровень хп",
+    "level": 4
+  },
+  {
+    "command": "/setleader",
+    "description": "назначить игрока лидером фракции",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/setmediadimension",
+    "description": "установить игроку медиа-дименшин и доступ к медиа-камере",
+    "level": 4
+  },
+  {
+    "command": "/setskill",
+    "description": "выдать игроку скиллы",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/setskin",
+    "description": "изменить скин игроку",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/sgethere",
+    "description": "телепортировать игрока к себе",
+    "level": 4
+  },
+  {
+    "command": "/sgh",
+    "description": "телепортировать игрока к себе",
+    "level": 4
+  },
+  {
+    "command": "/skick",
+    "description": "отключение игрока с сервера без уведомления у него",
+    "level": 4
+  },
+  {
+    "command": "/skipquest",
+    "description": "пропустить квест",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/slap",
+    "description": "подкинуть игрока",
+    "level": 4
+  },
+  {
+    "command": "/sp",
+    "description": "следить за игроком",
+    "level": 4
+  },
+  {
+    "command": "/spawn",
+    "description": "открыть выбор спавна (последний выход, нач. спавн и т.д.)",
+    "level": 4
+  },
+  {
+    "command": "/spawnplayer",
+    "description": "отправить игрока на спавн",
+    "level": 4
+  },
+  {
+    "command": "/spc",
+    "description": "следить за игроком по статическому ID",
+    "level": 4
+  },
+  {
+    "command": "/spec",
+    "description": "следить за игроком",
+    "level": 4
+  },
+  {
+    "command": "/spoff",
+    "description": "перестать следить за игроком",
+    "level": 4
+  },
+  {
+    "command": "/spp",
+    "description": "отправить игрока на спавн",
+    "level": 4
+  },
+  {
+    "command": "/startgolos",
+    "description": "управление голосованиями / выборами",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/stats",
+    "description": "показать статистику персонажа",
+    "level": 4
+  },
+  {
+    "command": "/statsdamage",
+    "description": "просмотреть статистику урона по SID",
+    "level": 4
+  },
+  {
+    "command": "/sunjail",
+    "description": "тихо выпустить игрока из тюрьмы",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/templeader",
+    "description": "взять временную лидерку",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/tempmember",
+    "description": "вступить во фракцию временно на определенный ранг",
+    "level": 4
+  },
+  {
+    "command": "/ticketalldetector",
+    "description": "запустить тик металлоискателя",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/tp",
+    "description": "открыть список мест для телепорта",
+    "level": 4
+  },
+  {
+    "command": "/tpbiz",
+    "description": "телепортироваться к бизнесу",
+    "level": 4
+  },
+  {
+    "command": "/tpc",
+    "description": "тп по координатам",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/tpgarage",
+    "description": "тп в гараж",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/tphome",
+    "description": "тп к дому",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/tpmark",
+    "description": "телепорт на метку",
+    "level": 4
+  },
+  {
+    "command": "/unbanip",
+    "description": "раззаблокировать IP",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/unbansoc",
+    "description": "разблокировать Social ID",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/uncuff",
+    "description": "снять наручники/веревку/мешок с игрока",
+    "level": 4
+  },
+  {
+    "command": "/unfreezedist",
+    "description": "разморозить игроков и т/с в радиусе",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/unfzdist",
+    "description": "разморозить игроков и т/с в радиусе",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/ungunban",
+    "description": "снять запрет на оружие у игрока",
+    "level": 4
+  },
+  {
+    "command": "/unjail",
+    "description": "выпустить игрока с тюрьмы",
+    "level": 4
+  },
+  {
+    "command": "/unjoincartrunk",
+    "description": "достать игрока из багажника",
+    "level": 4
+  },
+  {
+    "command": "/unmute",
+    "description": "снять бан чата",
+    "level": 4
+  },
+  {
+    "command": "/unmuterep",
+    "description": "снять мут репорта",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/unwarn",
+    "description": "снять предупреждение у игрока",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/veh",
+    "description": "создать админ транспорт",
+    "level": 4
+  },
+  {
+    "command": "/vehengine",
+    "description": "запустить/заглушить двигатель транспорта",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/vinfo",
+    "description": "посмотреть информацию об автомобиле по id (/dl)",
+    "level": 4
+  },
+  {
+    "command": "/voiceup",
+    "description": "увеличить расстояний слышимости голоса",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  },
+  {
+    "command": "/wantedlvl",
+    "description": "установить уровень розыска",
+    "level": 4
+  },
+  {
+    "command": "/warn",
+    "description": "выдать предупреждение игроку",
+    "level": 4
+  },
+  {
+    "command": "/wesettings",
+    "description": "настройки предприятий",
+    "level": 7,
+    "source": "Скриншоты команд 7-го уровня от пользователя (2026-11-06)"
+  }
+]

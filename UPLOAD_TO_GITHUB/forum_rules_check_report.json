@@ -1,0 +1,16 @@
+{
+  "records": 942,
+  "topics": 34,
+  "category_counts": {
+    "Общие правила": 111,
+    "Совместные мероприятия": 144,
+    "Криминальные организации": 285,
+    "Государственные организации": 336,
+    "Дополнительные правила": 12,
+    "Семейные организации": 54
+  },
+  "no_explicit_number": 12,
+  "source_section_problem": "All 942 records had section Общие правила; corrected categories inferred from topic names, not independently checked against forum hierarchy",
+  "original_text_preserved": true,
+  "not_verified": "full forum coverage and current forum versions"
+}

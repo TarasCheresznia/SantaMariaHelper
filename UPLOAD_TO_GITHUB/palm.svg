@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+<defs><linearGradient id="sun" x2="0.8" y2="1"><stop stop-color="#ffdf78"/><stop offset="1" stop-color="#ed7924"/></linearGradient></defs>
+<circle cx="129" cy="112" r="67" fill="url(#sun)" opacity=".14"/>
+<path d="M127 222 C130 182 137 139 132 97" fill="none" stroke="#f4a13a" stroke-width="13" stroke-linecap="round"/>
+<path d="M133 106 Q109 61 48 80 Q95 79 122 119 M136 100 Q156 50 217 62 Q165 70 140 116 M136 96 Q134 36 91 18 Q123 53 126 108 M135 100 Q176 92 202 145 Q169 118 138 116 M129 104 Q95 95 69 143 Q102 119 134 119 M135 98 Q158 36 160 17 Q170 67 140 111" stroke="#ffc063" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+<path d="M88 228 Q134 215 174 228" fill="none" stroke="#f4a13a" stroke-width="8" stroke-linecap="round"/>
+</svg>
