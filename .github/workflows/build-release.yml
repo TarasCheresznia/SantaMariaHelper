@@ -1,0 +1,44 @@
+name: Build and publish Santa Maria Helper
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+permissions:
+  contents: write
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Build EXE
+        shell: pwsh
+        run: |
+          python -m PyInstaller --noconfirm --clean --onefile --windowed --name SantaMariaHelper --icon helper.ico --add-data "helper.ico;." --add-data "helper_logo.png;." --add-data "palm_ui.png;." --add-data "commands.json;." --add-data "rules.json;." --add-data "forum_rules.json;." --hidden-import pynput.keyboard._win32 main.py
+      - name: Calculate SHA256
+        shell: pwsh
+        run: |
+          $hash = (Get-FileHash "dist/SantaMariaHelper.exe" -Algorithm SHA256).Hash.ToLowerInvariant()
+          "$hash  SantaMariaHelper.exe" | Set-Content -Path "dist/SantaMariaHelper.exe.sha256" -Encoding ascii
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: SantaMariaHelper-Windows
+          path: |
+            dist/SantaMariaHelper.exe
+            dist/SantaMariaHelper.exe.sha256
+      - name: Publish release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: |
+            dist/SantaMariaHelper.exe
+            dist/SantaMariaHelper.exe.sha256

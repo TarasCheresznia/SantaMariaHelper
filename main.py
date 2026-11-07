@@ -726,7 +726,7 @@ class Window(QMainWindow):
         self.autostart=QCheckBox('Запускать Santa Maria Helper вместе с Windows')
         self.autostart.setChecked(self.cfg.get('start_with_windows',False));self.autostart.toggled.connect(self.change_autostart);gc.addWidget(self.autostart)
         gc.addWidget(QLabel('Обновления приложения через GitHub Releases'))
-        self.github_repo=QLineEdit(self.cfg.get('github_repo',''))
+        self.github_repo=QLineEdit(self.cfg.get('github_repo') or 'TarasCheresznia/SantaMariaHelper')
         self.github_repo.setPlaceholderText('владелец/репозиторий (например, myname/SantaMariaHelper)')
         self.github_repo.editingFinished.connect(self.save_github_repo)
         self.app_update_auto=QCheckBox('Проверять обновления приложения при запуске')
@@ -1334,7 +1334,7 @@ QScrollBar::add-line:vertical,QScrollBar::sub-line:vertical {height:0px;}
             self.check_app_update(silent=True)
     def check_app_update(self,silent=False):
         if self.update_worker and self.update_worker.isRunning():return
-        repo=self.cfg.get('github_repo','')
+        repo=self.cfg.get('github_repo') or 'TarasCheresznia/SantaMariaHelper'
         if not repo:
             if not silent:self.app_update_note.setText('Укажите GitHub-репозиторий в формате владелец/репозиторий.')
             return
@@ -1368,7 +1368,7 @@ QScrollBar::add-line:vertical,QScrollBar::sub-line:vertical {height:0px;}
     def download_app_update(self,release):
         self.app_update_button.setEnabled(False)
         self.app_update_note.setText('Загрузка обновления и проверка SHA-256…')
-        self.update_worker=UpdateWorker(self.cfg.get('github_repo',''),release,parent=self)
+        self.update_worker=UpdateWorker(self.cfg.get('github_repo') or 'TarasCheresznia/SantaMariaHelper',release,parent=self)
         self.update_worker.update_result.connect(lambda data,err:self._queue_update_result(data,err,False,True))
         self.update_worker.finished.connect(lambda:self.app_update_button.setEnabled(True))
         self.update_worker.start()
