@@ -9,7 +9,7 @@ import tempfile
 import time
 import requests
 
-VERSION='36.0.7'
+VERSION='36.0.8'
 GITHUB_REPO=re.compile(r'^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$')
 
 
