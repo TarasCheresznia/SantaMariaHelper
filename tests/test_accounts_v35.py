@@ -32,5 +32,24 @@ class TestAccounts(unittest.TestCase):
     def test_command_permissions(self):
         for lvl in (2,3,4,5,6,7,8):
             for requirement in (2,3,4,5,6,7,8):
-                self.assertEqual(can_use_command(lvl,{'level':requirement}),requirement<=lvl)
+                self.assertEqual(can_use_command(lvl,{'level':requirement}),requirement==lvl)
+        self.assertTrue(can_use_command(2, {'level':2,'available_levels':[2,5]}))
+        self.assertTrue(can_use_command(5, {'level':2,'available_levels':[2,5]}))
+        self.assertFalse(can_use_command(3, {'level':2,'available_levels':[2,5]}))
+        self.assertFalse(can_use_command(7, {'level':2,'available_levels':[2,5]}))
         self.assertEqual(LEVEL_NAMES[6],'ЗГА')
+
+    def test_screenshot_level_command_counts(self):
+        import json
+        commands=json.loads((Path(__file__).resolve().parent.parent/'commands.json').read_text('utf-8'))
+        visible=lambda level:[c for c in commands if can_use_command(level,c)]
+        self.assertEqual(len(visible(2)),49)
+        self.assertEqual(len(visible(5)),133)
+        self.assertEqual(len(visible(3)),0)
+        self.assertEqual(len(visible(4)),0)
+        self.assertEqual(len(visible(6)),0)
+        self.assertEqual(len(visible(8)),0)
+        self.assertEqual(len(visible(7)),80)
+        self.assertIn('/spec',{x['command'] for x in visible(2)})
+        self.assertIn('/offwarn',{x['command'] for x in visible(5)})
+        self.assertNotIn('/ban',{x['command'] for x in visible(2)})
