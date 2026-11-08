@@ -1,43 +1,68 @@
 name: Build and publish Santa Maria Helper
+
 on:
   workflow_dispatch:
   push:
+    branches:
+      - main
+    paths:
+      - app_updater.py
     tags:
       - 'v*'
+
 permissions:
   contents: write
+
 jobs:
   build-windows:
     runs-on: windows-latest
     steps:
-      - name: Checkout project
+      - name: Checkout source
         uses: actions/checkout@v4
-      - name: Setup Python
+
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+
+      - name: Read app version
+        id: version
+        shell: pwsh
+        run: |
+          $match = Select-String -Path app_updater.py -Pattern "^VERSION='([0-9]+\.[0-9]+\.[0-9]+)'$"
+          if (-not $match) { throw "Cannot read version from app_updater.py" }
+          $tag = "v" + $match.Matches[0].Groups[1].Value
+          "tag=$tag" >> $env:GITHUB_OUTPUT
+
       - name: Install dependencies
         run: python -m pip install -r requirements.txt
-      - name: Build EXE
+
+      - name: Build Windows EXE
         shell: pwsh
         run: |
           python -m PyInstaller --noconfirm --clean --onefile --windowed --name SantaMariaHelper --icon helper.ico --add-data "helper.ico;." --add-data "helper_logo.png;." --add-data "palm_ui.png;." --add-data "commands.json;." --add-data "rules.json;." --add-data "forum_rules.json;." --hidden-import pynput.keyboard._win32 main.py
-      - name: Calculate SHA256
+
+      - name: Generate SHA-256 checksum
         shell: pwsh
         run: |
           $hash = (Get-FileHash "dist/SantaMariaHelper.exe" -Algorithm SHA256).Hash.ToLowerInvariant()
           "$hash  SantaMariaHelper.exe" | Set-Content -Path "dist/SantaMariaHelper.exe.sha256" -Encoding ascii
-      - name: Upload artifacts
+
+      - name: Upload EXE artifact
         uses: actions/upload-artifact@v4
         with:
           name: SantaMariaHelper-Windows
           path: |
             dist/SantaMariaHelper.exe
             dist/SantaMariaHelper.exe.sha256
-      - name: Publish release
-        if: startsWith(github.ref, 'refs/tags/v')
+
+      - name: Publish versioned GitHub Release
+        if: github.event_name == 'push'
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ steps.version.outputs.tag }}
+          target_commitish: ${{ github.sha }}
+          name: Santa Maria Helper ${{ steps.version.outputs.tag }}
           generate_release_notes: true
           files: |
             dist/SantaMariaHelper.exe
