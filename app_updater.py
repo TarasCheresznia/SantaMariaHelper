@@ -9,7 +9,7 @@ import tempfile
 import time
 import requests
 
-VERSION='36.0.1'
+VERSION='36.0.2'
 GITHUB_REPO=re.compile(r'^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$')
 
 
@@ -25,7 +25,7 @@ def check_release(repo, current=VERSION):
     response.raise_for_status()
     data=response.json()
     remote=version_tuple(data.get('tag_name',''))
-    if not remote:raise ValueError('У релиза неверный тег версии (нужно v21.0.1)')
+    if not remote:raise ValueError('У релиза неверный тег версии (ожидается v36.0.2 или новее)')
     if remote <= version_tuple(current):return None
     if data.get('draft') or data.get('prerelease'):return None
     asset=next((a for a in data.get('assets',[]) if a.get('name')=='SantaMariaHelper.exe'),None)
@@ -71,7 +71,10 @@ def schedule_replace(current_exe, downloaded):
     script.write_text(r"""param([string]$Old,[string]$New,[int]$AppPid)
 $ErrorActionPreference='Stop'
 try {
-  try { Wait-Process -Id $AppPid -Timeout 45 -ErrorAction SilentlyContinue } catch {}
+  try { Wait-Process -Id $AppPid -Timeout 60 -ErrorAction SilentlyContinue } catch {}
+  if (Get-Process -Id $AppPid -ErrorAction SilentlyContinue) {
+    throw 'Приложение не закрылось. Завершите SantaMariaHelper.exe и повторите обновление.'
+  }
   $dest=Split-Path -Parent $Old
   $backup=Join-Path $dest 'SantaMariaHelper.previous.exe'
   if (Test-Path -LiteralPath $backup) { Remove-Item -LiteralPath $backup -Force }
@@ -82,7 +85,10 @@ try {
   Remove-Item -LiteralPath $New -Force -ErrorAction SilentlyContinue
 } catch {
   $msg='Обновление не установлено: ' + $_.Exception.Message
-  [System.Windows.MessageBox]::Show($msg,'Santa Maria Helper') | Out-Null
+  try {
+    Add-Type -AssemblyName System.Windows.Forms
+    [System.Windows.Forms.MessageBox]::Show($msg,'Santa Maria Helper') | Out-Null
+  } catch { Write-Error $msg }
 }
 """,encoding='utf-8-sig')
     flags=getattr(subprocess,'CREATE_NO_WINDOW',0)
