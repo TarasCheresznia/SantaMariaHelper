@@ -752,9 +752,9 @@ class Window(QMainWindow):
         self.app_update_auto=QCheckBox('Проверять обновления приложения при запуске')
         self.app_update_auto.setChecked(self.cfg.get('app_update_auto',True))
         self.app_update_auto.toggled.connect(self.change_app_update_auto);gc.addWidget(self.app_update_auto)
-        self.app_update_button=QPushButton('Проверить обновление приложения')
+        self.app_update_button=QPushButton('Обновить приложение')
         self.app_update_button.clicked.connect(lambda checked=False: self.check_app_update(silent=False));gc.addWidget(self.app_update_button)
-        self.app_update_note=QLabel('ЗАПУЩЕНА ВЕРСИЯ v'+VERSION+' · Нажмите кнопку, чтобы проверить GitHub.')
+        self.app_update_note=QLabel('Версия '+VERSION+' · Нажмите «Обновить приложение» для установки новой версии.')
         self.app_update_note.setWordWrap(True);gc.addWidget(self.app_update_note)
         general_hint=QLabel('При закрытии окно скрывается в трей. Включённый биндер продолжает работать.')
         general_hint.setObjectName('subtitle');general_hint.setWordWrap(True);gc.addWidget(general_hint)
@@ -1387,17 +1387,12 @@ QScrollBar::add-line:vertical,QScrollBar::sub-line:vertical {height:0px;}
         if not repo:
             if not silent:self.app_update_note.setText('Укажите GitHub-репозиторий в формате владелец/репозиторий.')
             return
-        if not silent:
-            QMessageBox.information(self,'Проверка обновлений',
-                'Запускаю проверку новой версии на GitHub.\n'
-                'Текущая версия этого EXE: v'+VERSION+'\n'
-                'После закрытия этого сообщения появится результат.')
         self.app_update_button.setEnabled(False)
         self.app_update_note.setText('Проверяем GitHub Releases…')
-        self.app_update_button.setText('Проверка обновлений…')
+        self.app_update_button.setText('Проверяем обновления…')
         self.update_worker=UpdateWorker(repo,parent=self)
         self.update_worker.update_result.connect(lambda data,err:self._queue_update_result(data,err,silent,False))
-        self.update_worker.finished.connect(lambda:(self.app_update_button.setEnabled(True),self.app_update_button.setText('Проверить обновление приложения')))
+        self.update_worker.finished.connect(lambda:(self.app_update_button.setEnabled(True),self.app_update_button.setText('Обновить приложение')))
         self.update_worker.start()
     def _queue_update_result(self,data,error,silent,is_download):
         # QThread must finish before its reference is replaced by a new worker.
@@ -1418,18 +1413,20 @@ QScrollBar::add-line:vertical,QScrollBar::sub-line:vertical {height:0px;}
                 QMessageBox.information(self,'Проверка обновлений','Новых обновлений нет. Текущая версия: '+VERSION)
             return
         self.available_release=release
-        self.app_update_note.setText('Доступна версия '+release['version'])
-        answer=QMessageBox.question(self,'Обновление Santa Maria Helper',
-            'Доступна версия '+release['version']+'.\nСкачать и установить обновление?\nВаши профили и настройки сохранятся.',
-            QMessageBox.Yes|QMessageBox.No,QMessageBox.No)
-        if answer==QMessageBox.Yes:
+        self.app_update_note.setText('Найдена версия '+release['version'])
+        if silent:
+            # Startup checks never install without a direct user click.
+            self.app_update_note.setText('Доступна версия '+release['version']+'. Нажмите «Обновить приложение».')
+        else:
+            # Explicit button click performs the entire update without a second confirmation.
             self.download_app_update(release)
     def download_app_update(self,release):
         self.app_update_button.setEnabled(False)
+        self.app_update_button.setText('Скачиваем обновление…')
         self.app_update_note.setText('Загрузка обновления и проверка SHA-256…')
         self.update_worker=UpdateWorker(self.cfg.get('github_repo') or 'TarasCheresznia/SantaMariaHelper',release,parent=self)
         self.update_worker.update_result.connect(lambda data,err:self._queue_update_result(data,err,False,True))
-        self.update_worker.finished.connect(lambda:self.app_update_button.setEnabled(True))
+        self.update_worker.finished.connect(lambda:(self.app_update_button.setEnabled(True),self.app_update_button.setText('Обновить приложение')))
         self.update_worker.start()
     def on_app_update_downloaded(self,path,error):
         if error:
