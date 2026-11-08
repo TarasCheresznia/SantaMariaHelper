@@ -668,7 +668,7 @@ class Window(QMainWindow):
         self.content=QWidget();self.content.setMinimumWidth(0);row.addWidget(self.sidebar);row.addWidget(self.content,1)
         outer=QVBoxLayout(self.content);outer.setContentsMargins(23,14,23,13);outer.setSpacing(12)
         self.topbar=DragBar(self);header=QHBoxLayout(self.topbar);header.setContentsMargins(6,2,0,2)
-        header.addStretch();header_palm=QLabel();header_palm.setPixmap(QPixmap(str(ROOT/'palm_ui.png')).scaled(27,27,Qt.KeepAspectRatio,Qt.SmoothTransformation));header_palm.setAttribute(Qt.WA_TransparentForMouseEvents,True);header.addWidget(header_palm);logo=QLabel('Santa Maria Helper');logo.setObjectName('title');logo.setAttribute(Qt.WA_TransparentForMouseEvents,True);header.addWidget(logo);header.addStretch()
+        header.addStretch();header_palm=QLabel();header_palm.setPixmap(QPixmap(str(ROOT/'palm_ui.png')).scaled(27,27,Qt.KeepAspectRatio,Qt.SmoothTransformation));header_palm.setAttribute(Qt.WA_TransparentForMouseEvents,True);header.addWidget(header_palm);logo=QLabel('Santa Maria Helper');logo.setObjectName('title');logo.setAttribute(Qt.WA_TransparentForMouseEvents,True);header.addWidget(logo);self.build_version=QLabel('v'+VERSION);self.build_version.setObjectName('buildVersion');self.build_version.setToolTip('Версия запущенного EXE');header.addWidget(self.build_version);header.addStretch()
         minimize=QPushButton('—');minimize.setObjectName('windowAction');minimize.setFixedSize(34,28);minimize.clicked.connect(self.showMinimized);header.addWidget(minimize)
         close=QPushButton('✕');close.setObjectName('windowAction');close.setFixedSize(34,28);close.clicked.connect(self.close);header.addWidget(close)
         outer.addWidget(self.topbar)
@@ -773,7 +773,7 @@ class Window(QMainWindow):
         self.app_update_auto.toggled.connect(self.change_app_update_auto);gc.addWidget(self.app_update_auto)
         self.app_update_button=QPushButton('Проверить обновление приложения')
         self.app_update_button.clicked.connect(lambda checked=False: self.check_app_update(silent=False));gc.addWidget(self.app_update_button)
-        self.app_update_note=QLabel('Текущая версия: '+VERSION+'. Нажмите кнопку, чтобы проверить GitHub.')
+        self.app_update_note=QLabel('ЗАПУЩЕНА ВЕРСИЯ v'+VERSION+' · Нажмите кнопку, чтобы проверить GitHub.')
         self.app_update_note.setWordWrap(True);gc.addWidget(self.app_update_note)
         general_hint=QLabel('При закрытии окно скрывается в трей. Включённый биндер продолжает работать.')
         general_hint.setObjectName('subtitle');general_hint.setWordWrap(True);gc.addWidget(general_hint)
@@ -829,6 +829,7 @@ QLabel#modelStatus {background:#332419; color:#ffcd97; padding:12px; border-radi
 QScrollArea {border:0; background:transparent;}
 QScrollArea > QWidget > QWidget {background:transparent;}
 QLabel#title {color:#ffa347; font-size:20px; font-weight:700;}
+QLabel#buildVersion {color:#ffd18b; font-size:13px; font-weight:700; background:#382515; border:1px solid #7b502f; border-radius:7px; padding:4px 8px;}
 QLabel#heading {color:#ffe5ce; font-size:24px; font-weight:700;}
 QLabel#subtitle {color:#a99482; font-size:14px;}
 QLabel#credit {color:#ffab59; font-size:12px; font-weight:600;}
@@ -1376,6 +1377,11 @@ QScrollBar::add-line:vertical,QScrollBar::sub-line:vertical {height:0px;}
         if not repo:
             if not silent:self.app_update_note.setText('Укажите GitHub-репозиторий в формате владелец/репозиторий.')
             return
+        if not silent:
+            QMessageBox.information(self,'Проверка обновлений',
+                'Запускаю проверку новой версии на GitHub.\n'
+                'Текущая версия этого EXE: v'+VERSION+'\n'
+                'После закрытия этого сообщения появится результат.')
         self.app_update_button.setEnabled(False)
         self.app_update_note.setText('Проверяем GitHub Releases…')
         self.app_update_button.setText('Проверка обновлений…')
@@ -1445,7 +1451,7 @@ QScrollBar::add-line:vertical,QScrollBar::sub-line:vertical {height:0px;}
         except OSError as e:QMessageBox.warning(self,'Автозапуск',str(e));self.autostart.blockSignals(True);self.autostart.setChecked(not on);self.autostart.blockSignals(False)
     def make_tray(self):
         self.tray=QSystemTrayIcon(QIcon(str(ROOT/'helper.ico')),self)
-        menu=QMenu();open_action=menu.addAction('Открыть Santa Maria Helper');open_action.triggered.connect(self.show_normal)
+        menu=QMenu();menu.addAction('Версия: v'+VERSION).setEnabled(False);menu.addSeparator();open_action=menu.addAction('Открыть Santa Maria Helper');open_action.triggered.connect(self.show_normal)
         toggle=menu.addAction('Включить / выключить биндер');toggle.triggered.connect(lambda:self.update_engine_state(not self.cfg['running']))
         quit_action=menu.addAction('Выход');quit_action.triggered.connect(self.quit_app)
         self.tray.setContextMenu(menu);self.tray.activated.connect(lambda reason:self.show_normal() if reason==QSystemTrayIcon.DoubleClick else None)
