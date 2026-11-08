@@ -772,8 +772,8 @@ class Window(QMainWindow):
         self.app_update_auto.setChecked(self.cfg.get('app_update_auto',True))
         self.app_update_auto.toggled.connect(self.change_app_update_auto);gc.addWidget(self.app_update_auto)
         self.app_update_button=QPushButton('Проверить обновление приложения')
-        self.app_update_button.clicked.connect(self.check_app_update);gc.addWidget(self.app_update_button)
-        self.app_update_note=QLabel('Версия '+VERSION+'. Укажите GitHub-репозиторий для обновлений.')
+        self.app_update_button.clicked.connect(lambda checked=False: self.check_app_update(silent=False));gc.addWidget(self.app_update_button)
+        self.app_update_note=QLabel('Текущая версия: '+VERSION+'. Нажмите кнопку, чтобы проверить GitHub.')
         self.app_update_note.setWordWrap(True);gc.addWidget(self.app_update_note)
         general_hint=QLabel('При закрытии окно скрывается в трей. Включённый биндер продолжает работать.')
         general_hint.setObjectName('subtitle');general_hint.setWordWrap(True);gc.addWidget(general_hint)
@@ -1365,19 +1365,23 @@ QScrollBar::add-line:vertical,QScrollBar::sub-line:vertical {height:0px;}
     def change_app_update_auto(self,on):
         self.cfg['app_update_auto']=on;self.save_config()
     def maybe_check_app_update(self):
-        if self.cfg.get('app_update_auto',True) and self.cfg.get('github_repo'):
+        if self.cfg.get('app_update_auto',True):
             self.check_app_update(silent=True)
     def check_app_update(self,silent=False):
-        if self.update_worker and self.update_worker.isRunning():return
+        if self.update_worker and self.update_worker.isRunning():
+            if not silent:
+                QMessageBox.information(self,'Обновления','Проверка или загрузка обновления уже выполняется.')
+            return
         repo=self.cfg.get('github_repo') or 'TarasCheresznia/SantaMariaHelper'
         if not repo:
             if not silent:self.app_update_note.setText('Укажите GitHub-репозиторий в формате владелец/репозиторий.')
             return
         self.app_update_button.setEnabled(False)
         self.app_update_note.setText('Проверяем GitHub Releases…')
+        self.app_update_button.setText('Проверка обновлений…')
         self.update_worker=UpdateWorker(repo,parent=self)
         self.update_worker.update_result.connect(lambda data,err:self._queue_update_result(data,err,silent,False))
-        self.update_worker.finished.connect(lambda:self.app_update_button.setEnabled(True))
+        self.update_worker.finished.connect(lambda:(self.app_update_button.setEnabled(True),self.app_update_button.setText('Проверить обновление приложения')))
         self.update_worker.start()
     def _queue_update_result(self,data,error,silent,is_download):
         # QThread must finish before its reference is replaced by a new worker.
@@ -1389,9 +1393,13 @@ QScrollBar::add-line:vertical,QScrollBar::sub-line:vertical {height:0px;}
     def on_update_checked(self,release,error,silent):
         if error:
             self.app_update_note.setText('Не удалось проверить обновления: '+error)
+            if not silent:
+                QMessageBox.warning(self,'Проверка обновлений','Не удалось связаться с GitHub:\n'+error)
             return
         if not release:
             self.app_update_note.setText('Установлена последняя версия ('+VERSION+').')
+            if not silent:
+                QMessageBox.information(self,'Проверка обновлений','Новых обновлений нет. Текущая версия: '+VERSION)
             return
         self.available_release=release
         self.app_update_note.setText('Доступна версия '+release['version'])
@@ -1410,11 +1418,13 @@ QScrollBar::add-line:vertical,QScrollBar::sub-line:vertical {height:0px;}
     def on_app_update_downloaded(self,path,error):
         if error:
             self.app_update_note.setText('Ошибка обновления: '+error)
+            QMessageBox.warning(self,'Ошибка обновления',str(error))
             return
         try:
             schedule_replace(sys.executable,path)
         except Exception as e:
             self.app_update_note.setText('Не удалось установить обновление: '+str(e))
+            QMessageBox.warning(self,'Ошибка установки обновления',str(e))
             return
         self.app_update_note.setText('Обновление загружено. Перезапуск приложения…')
         self.quit_app()
