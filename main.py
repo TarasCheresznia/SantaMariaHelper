@@ -45,6 +45,41 @@ def write_json(path, data):
     path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)
     temp=path.with_suffix('.tmp');temp.write_text(json.dumps(data,ensure_ascii=False,indent=2),encoding='utf-8');os.replace(temp,path)
 
+def load_admin_commands():
+    """Keep users' locally edited descriptions while applying the screenshot level mappings."""
+    bundled=read_json(ROOT/'commands.json',[])
+    if not isinstance(bundled,list):bundled=[]
+    custom=read_json(COMMANDS_FILE,None)
+    if not isinstance(custom,list):
+        return bundled
+
+    authoritative={str(c.get('command','')).lower():c for c in bundled if isinstance(c,dict)}
+    merged=[]
+    seen=set()
+    for original in custom:
+        if not isinstance(original,dict):
+            continue
+        cmd=str(original.get('command','')).lower()
+        if not cmd or cmd in seen:
+            continue
+        item=dict(original)
+        # Migrate earlier installations with old numeric tiers to the
+        # screenshot-backed availability mapping, without losing edits.
+        if not isinstance(item.get('available_levels'),list):
+            standard=authoritative.get(cmd)
+            if standard and isinstance(standard.get('available_levels'),list):
+                item['available_levels']=list(standard['available_levels'])
+            else:
+                item['available_levels']=[int(item.get('level',2) or 2)]
+        merged.append(item)
+        seen.add(cmd)
+    # Two commands newly transcribed from the supplied level-5 screenshots.
+    for cmd in ('/offgunban','/offwarn'):
+        if cmd not in seen and cmd in authoritative:
+            merged.append(dict(authoritative[cmd]))
+    return merged
+
+
 def profile_path(name, account_id=None):
     safe=''.join(c for c in name if c.isalnum() or c in ' _-')[:60].strip()
     if not safe:raise ValueError('Введите имя профиля')
@@ -410,7 +445,7 @@ class CommandManagerDialog(QDialog):
         form.addRow('Описание',self.description)
         self.level=QComboBox()
         for name,value in LEVELS:self.level.addItem(name,value)
-        form.addRow('Доступна начиная с',self.level);rr.addLayout(form)
+        form.addRow('Уровень команды',self.level);rr.addLayout(form)
         for label,callback in [('＋ Добавить',self.add),('Сохранить изменения',self.update),('Удалить команду',self.delete)]:
             b=QPushButton(label);b.clicked.connect(callback);rr.addWidget(b)
         rr.addStretch(1)
@@ -473,7 +508,7 @@ class CommandManagerDialog(QDialog):
         if not re.fullmatch(r'/[a-z][a-z0-9_]{0,40}',command):raise ValueError('Введите команду в формате /command')
         description=self.description.toPlainText().strip()
         if not description:raise ValueError('Укажите описание')
-        return {'command':command,'description':description[:500],'level':self.level.currentData()}
+        return {'command':command,'description':description[:500],'level':self.level.currentData(), 'available_levels':[int(self.level.currentData())]}
     def add(self):
         try:
             r=self.data()
@@ -487,6 +522,9 @@ class CommandManagerDialog(QDialog):
             r=self.data()
             if any(k!=i and x.get('command','').lower()==r['command'] for k,x in enumerate(self.commands)):
                 raise ValueError('Такая команда уже существует')
+            previous=self.commands[i]
+            if int(previous.get('level',2))==int(r['level']) and isinstance(previous.get('available_levels'),list):
+                r['available_levels']=list(previous['available_levels'])
             self.commands[i]=r;self.refresh()
         except ValueError as e:QMessageBox.warning(self,'Команды',str(e))
     def delete(self):
@@ -591,7 +629,7 @@ class Window(QMainWindow):
         super().__init__();self.setWindowFlags(Qt.Window | Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint);self.setWindowTitle('Santa Maria Helper');self.setWindowIcon(QIcon(str(ROOT/'helper_logo.png')))
         self.resize(1080,740);self.setMinimumSize(640,450)
         self.cfg=read_json(CONFIG,{'profile':'Основной','running':False,'auto_update':True,'last_sync':'','start_with_windows':False})
-        self.items=[];self.rules=[];self.all_commands=read_json(COMMANDS_FILE,read_json(ROOT/'commands.json',[]))
+        self.items=[];self.rules=[];self.all_commands=load_admin_commands()
         self.commands=[c for c in self.all_commands if can_use_command(self.account['level'],c)]
         self.filtered=[];self.mode='rules';self.category=None;self.page='search';self.answerer=None;self.model_name=self.cfg.get('ollama_model',DEFAULT_MODEL);self.model_worker=None
         self.engine=Engine(lambda m: self.engine_msg.emit(m))
@@ -1168,47 +1206,19 @@ QScrollBar::add-line:vertical,QScrollBar::sub-line:vertical {height:0px;}
             self.context_label.setText(f'{label}  •  {len(self.filtered)} пунктов  •  {len(topics)} тем')
             self.context_label.setVisible(True)
         else:
-            # Display the COMPLETE accessible command list, grouped under
-            # each admin level. New/empty levels remain visible so the list
-            # automatically fills as commands are added in the developer editor.
-            grouped={}
-            for score, command in filtered:
-                try:
-                    level=int(command.get('level',2) or 2)
-                except (ValueError,TypeError):
-                    level=2
-                grouped.setdefault(level,[]).append((score,command))
-            self.filtered=[]
-            for name,level in LEVELS:
-                if level>self.account['level']:
-                    continue
-                entries=grouped.get(level,[])
-                if query and not entries:
-                    continue
-                header=QListWidgetItem(f'УРОВЕНЬ {name}   ·   {len(entries)} команд')
-                header.setFlags(Qt.NoItemFlags)
-                header.setForeground(QBrush(QColor('#ffbe78')))
-                header.setBackground(QBrush(QColor('#302116')))
-                self.results.addItem(header)
-                entries.sort(key=(lambda x:(-x[0],str(x[1].get('command','')).casefold()))
-                             if query else (lambda x:str(x[1].get('command','')).casefold()))
-                if not entries:
-                    empty=QListWidgetItem('Команды этого уровня пока не добавлены')
-                    empty.setFlags(Qt.NoItemFlags)
-                    empty.setForeground(QBrush(QColor('#a99482')))
-                    self.results.addItem(empty)
-                for _score,command in entries:
-                    index=len(self.filtered)
-                    self.filtered.append(command)
-                    row=QListWidgetItem(f"{command.get('command','')}\n{command.get('description','')}")
-                    row.setData(Qt.UserRole,index)
-                    row.setBackground(QBrush(QColor('#241c17')))
-                    row.setToolTip('Двойной щелчок — полное описание команды')
-                    self.results.addItem(row)
-            if query and not self.filtered:
-                missing=QListWidgetItem('По запросу ничего не найдено')
-                missing.setFlags(Qt.NoItemFlags)
-                self.results.addItem(missing)
+            # One flat, searchable list for the logged-in admin's level only.
+            self.filtered=[r for score,r in sorted(filtered,key=lambda x: (-x[0],str(x[1].get('command','')).casefold()))] if query else sorted((r for _score,r in filtered),key=lambda r:str(r.get('command','')).casefold())
+            for index,command in enumerate(self.filtered):
+                row=QListWidgetItem(f"{command.get('command','')}\n{command.get('description','')}")
+                row.setData(Qt.UserRole,index)
+                row.setBackground(QBrush(QColor('#241c17')))
+                row.setToolTip('Двойной щелчок — полное описание команды')
+                self.results.addItem(row)
+            if not self.filtered:
+                empty=QListWidgetItem('Команды этого уровня пока не добавлены' if not query else 'По запросу ничего не найдено')
+                empty.setFlags(Qt.NoItemFlags)
+                empty.setForeground(QBrush(QColor('#a99482')))
+                self.results.addItem(empty)
             self.context_label.setVisible(False)
         self.results.setUpdatesEnabled(True)
 
