@@ -37,6 +37,9 @@ jobs:
       - name: Install dependencies
         run: python -m pip install -r requirements.txt
 
+      - name: Test level-specific command visibility
+        run: python -m unittest discover -s tests -p test_accounts_v35.py -v
+
       - name: Build Windows EXE
         shell: pwsh
         run: |
