@@ -3,12 +3,13 @@ import json, os, sys, threading, traceback, ctypes, html, subprocess, re, shutil
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from difflib import SequenceMatcher
-from PySide6.QtCore import Qt, QTimer, QThread, Signal, QPropertyAnimation, QEasingCurve, QUrl
-from PySide6.QtGui import QIcon, QAction, QCursor, QDesktopServices, QFontMetrics, QKeySequence, QShortcut, QPixmap, QColor, QBrush, QFont
+from PySide6.QtCore import Qt, QTimer, QThread, Signal, QPropertyAnimation, QEasingCurve, QUrl, QByteArray, QSize
+from PySide6.QtGui import QIcon, QAction, QCursor, QDesktopServices, QFontMetrics, QKeySequence, QShortcut, QPixmap, QColor, QBrush, QFont, QPainter
 from PySide6.QtWidgets import (QApplication, QWidget, QMainWindow, QFrame, QHBoxLayout, QVBoxLayout,
     QLabel, QPushButton, QLineEdit, QTextEdit, QTreeWidget, QTreeWidgetItem, QListWidget,
     QListWidgetItem, QStackedWidget, QComboBox, QCheckBox, QFormLayout, QDialog,
     QDialogButtonBox, QKeySequenceEdit, QMessageBox, QFileDialog, QSystemTrayIcon, QMenu, QSplitter, QSizePolicy, QSizeGrip, QScrollArea, QStyledItemDelegate, QStyleOptionViewItem, QAbstractItemView, QTextBrowser)
+from PySide6.QtSvg import QSvgRenderer
 from binder_engine import Engine, validate
 from admin_accounts import AccountStore, LEVELS, LEVEL_NAMES, DEV_MIN_LEVEL, can_use_command
 from search_engine import normalize
@@ -492,6 +493,33 @@ class CommandManagerDialog(QDialog):
         i=self.chosen_index()
         if 0<=i<len(self.commands):self.commands.pop(i);self.refresh()
 
+
+# Deterministic SVG icons keep collapsed navigation sharp and aligned on any Windows font.
+_NAV_SVG_PATHS = {
+    'ai': '<path d="m12 3 1.9 5.9L20 11l-6.1 2.1L12 19l-1.9-5.9L4 11l6.1-2.1z"/><path d="m19 18 .7 1.3L21 20l-1.3.7L19 22l-.7-1.3L17 20l1.3-.7z"/>',
+    'rules': '<path d="M8 6h13M8 12h13M8 18h13"/><path d="M3 6h.01M3 12h.01M3 18h.01"/>',
+    'commands': '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m7 9 3 3-3 3M12 15h5"/>',
+    'trigger': '<path d="m13 2-9 12h7l-1 8 10-12h-7z"/>',
+    'bind': '<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M6 9h.01M10 9h.01M14 9h.01M18 9h.01M6 12h.01M10 12h.01M14 12h.01M18 12h.01M7 16h10"/>',
+    'macro': '<path d="m8 5 11 7-11 7z"/>',
+    'profiles': '<circle cx="9" cy="8" r="3"/><path d="M3 20v-2c0-2.2 2.6-4 6-4s6 1.8 6 4v2"/><path d="M17 5a3 3 0 0 1 0 6m1 3c2.1.3 3 1.6 3 4v2"/>',
+    'settings': '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2 2-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.04 1.56V21h-2.8v-.1A1.7 1.7 0 0 0 11 19.34a1.7 1.7 0 0 0-1.88.34l-.06.06-2-2 .06-.06A1.7 1.7 0 0 0 7.46 15a1.7 1.7 0 0 0-1.56-1.04H5v-2.8h.9A1.7 1.7 0 0 0 7.46 10a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2-2 .06.06A1.7 1.7 0 0 0 11 6.46 1.7 1.7 0 0 0 12.04 4.9V4h2.8v.9A1.7 1.7 0 0 0 15.9 6.46a1.7 1.7 0 0 0 1.88-.34l.06-.06 2 2-.06.06A1.7 1.7 0 0 0 19.44 10 1.7 1.7 0 0 0 21 11.04h.1v2.8H21A1.7 1.7 0 0 0 19.4 15z"/>',
+}
+
+def make_nav_icon(name):
+    """Render crisp, fixed-size SVG glyphs without relying on emoji fonts."""
+    paths = _NAV_SVG_PATHS[name]
+    svg = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" '
+           'fill="none" stroke="#ffb86b" stroke-width="1.9" '
+           'stroke-linecap="round" stroke-linejoin="round">' + paths + '</svg>')
+    renderer = QSvgRenderer(QByteArray(svg.encode('utf-8')))
+    pixmap = QPixmap(48, 48)
+    pixmap.fill(Qt.transparent)
+    painter = QPainter(pixmap)
+    renderer.render(painter)
+    painter.end()
+    return QIcon(pixmap)
+
 class DragBar(QFrame):
     """Custom title bar for a frameless Windows window."""
     def __init__(self, window):
@@ -621,6 +649,18 @@ class Window(QMainWindow):
         self.nav_macros=QPushButton('▶');self.nav_macros.clicked.connect(lambda:self.navigate('macro'));side.addWidget(self.nav_macros)
         self.nav_profiles=QPushButton('▣');self.nav_profiles.clicked.connect(lambda:self.navigate('profiles'));side.addWidget(self.nav_profiles)
         self.nav_settings=QPushButton('⚙');self.nav_settings.clicked.connect(lambda:self.navigate('settings'));side.addWidget(self.nav_settings)
+        self.nav_icons = {'ai': self.nav_ai, 'rules': self.nav_rules, 'commands': self.nav_commands,
+                          'trigger': self.nav_triggers, 'bind': self.nav_binds, 'macro': self.nav_macros,
+                          'profiles': self.nav_profiles, 'settings': self.nav_settings}
+        for icon_name, nav_button in self.nav_icons.items():
+            nav_button.setIcon(make_nav_icon(icon_name))
+            nav_button.setIconSize(QSize(22, 22))
+            nav_button.setText('')
+            nav_button.setMinimumHeight(42)
+            nav_button.setToolTip({'ai': 'ИИ-помощник', 'rules': 'Правила', 'commands': 'Команды',
+                                  'trigger': 'Триггеры', 'bind': 'Бинды', 'macro': 'Макросы',
+                                  'profiles': 'Профили', 'settings': 'Настройки'}[icon_name])
+            nav_button.setStyleSheet('text-align:center; padding:0px;')
         self.status=QLabel('');self.status.setWordWrap(True);self.status.setVisible(False);side.addWidget(self.status)
         self.side_animation=QPropertyAnimation(self.sidebar,b'maximumWidth',self)
         self.side_animation.setDuration(240);self.side_animation.setEasingCurve(QEasingCurve.OutCubic)
@@ -725,7 +765,6 @@ class Window(QMainWindow):
         self.auto_update.setChecked(self.cfg.get('auto_update',True));self.auto_update.toggled.connect(self.change_auto_update);gc.addWidget(self.auto_update)
         self.autostart=QCheckBox('Запускать Santa Maria Helper вместе с Windows')
         self.autostart.setChecked(self.cfg.get('start_with_windows',False));self.autostart.toggled.connect(self.change_autostart);gc.addWidget(self.autostart)
-        gc.addWidget(QLabel('Обновления приложения через GitHub Releases'))
         self.github_repo=QLineEdit(self.cfg.get('github_repo') or 'TarasCheresznia/SantaMariaHelper')
         self.github_repo.setPlaceholderText('владелец/репозиторий (например, myname/SantaMariaHelper)')
         self.github_repo.editingFinished.connect(self.save_github_repo)
@@ -745,8 +784,6 @@ class Window(QMainWindow):
         il.addWidget(exit_user);sl.addWidget(identity_card)
         model_card=QFrame();model_card.setObjectName('settingsCard');mc=QVBoxLayout(model_card);mc.setSpacing(13)
         model_title=QLabel('Santa Maria Helper · Нейросеть');model_title.setObjectName('cardTitle');mc.addWidget(model_title)
-        intro=QLabel('Облачный ИИ работает через сервер. Друзьям не нужно устанавливать нейросеть или вводить API-ключ. Владелец один раз настраивает сервер Cloudflare.')
-        intro.setWordWrap(True);intro.setObjectName('subtitle');mc.addWidget(intro)
         self.cloud_url=QLineEdit(self.cfg.get('cloud_url') or DEFAULT_CLOUD_URL)
         self.cloud_url.setPlaceholderText('https://your-helper.your-name.workers.dev')
         self.cloud_url.editingFinished.connect(self.save_cloud_url)
@@ -777,10 +814,6 @@ class Window(QMainWindow):
         dev.addWidget(lock_button)
         self.developer_card.setVisible(False)
         sl.addWidget(self.developer_card)
-        notes=QFrame();notes.setObjectName('settingsCard');nl=QVBoxLayout(notes)
-        nl.addWidget(QLabel('Данные и профили'))
-        hint=QLabel('Профили биндера сохраняются локально. Правила работают из сохранённой базы, даже если форум временно недоступен.')
-        hint.setObjectName('subtitle');hint.setWordWrap(True);nl.addWidget(hint);sl.addWidget(notes)
         sl.addStretch()
         footer=QHBoxLayout();self.sync_note=QLabel('');footer.addWidget(self.sync_note,1);credit=QLabel('by taras_chereshnia');credit.setObjectName('credit');footer.addWidget(credit)
         self.resize_grip=QSizeGrip(self)
@@ -871,7 +904,9 @@ QScrollBar::add-line:vertical,QScrollBar::sub-line:vertical {height:0px;}
         if self.expanded==yes:return
         self.expanded=yes
         self.side_animation.stop();self.side_animation.setStartValue(self.sidebar.maximumWidth());self.side_animation.setEndValue(min(self.expanded_width,max(210,int(self.width()*0.38))) if yes else self.collapsed_width);self.side_animation.start()
-        for button,label in self.side_labels:button.setText(label if yes else {'Santa Maria Helper':'✦','Правила':'≡','Команды':'⌨','Триггеры':'⚡','Бинды':'⌘','Макросы':'▶','Профили':'▣','Настройки':'⚙'}[label])
+        for button,label in self.side_labels:
+            button.setText(label if yes else '')
+            button.setStyleSheet('text-align:left; padding-left:12px; padding-right:8px;' if yes else 'text-align:center; padding:0px;')
         self.binder_title.setText('Santa Maria Binder' if yes else 'SM')
         self.rule_tree.setVisible(self.mode=='rules' and self.page=='search')
         self.status.setVisible(yes)
