@@ -80,9 +80,13 @@ def can_use_command(level, command):
         active_level = int(level)
         assigned = command.get('available_levels')
         if isinstance(assigned, list):
-            return active_level in {int(value) for value in assigned}
+            levels={int(value) for value in assigned}
+            # Special admins inherit every GA (level 7) command, including
+            # user-edited custom command lists saved on disk.
+            return active_level in levels or (active_level == 8 and 7 in levels)
         # Newly created developer commands without an explicit mapping are
-        # available only to the single level selected in the editor.
-        return active_level == int(command.get('level', 2))
+        # available only to the assigned level (plus GA -> special admin).
+        required=int(command.get('level', 2))
+        return active_level == required or (active_level == 8 and required == 7)
     except (ValueError, TypeError):
         return False
