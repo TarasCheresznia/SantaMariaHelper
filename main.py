@@ -668,7 +668,7 @@ class Window(QMainWindow):
         self.content=QWidget();self.content.setMinimumWidth(0);row.addWidget(self.sidebar);row.addWidget(self.content,1)
         outer=QVBoxLayout(self.content);outer.setContentsMargins(23,14,23,13);outer.setSpacing(12)
         self.topbar=DragBar(self);header=QHBoxLayout(self.topbar);header.setContentsMargins(6,2,0,2)
-        header.addStretch();header_palm=QLabel();header_palm.setPixmap(QPixmap(str(ROOT/'palm_ui.png')).scaled(27,27,Qt.KeepAspectRatio,Qt.SmoothTransformation));header_palm.setAttribute(Qt.WA_TransparentForMouseEvents,True);header.addWidget(header_palm);logo=QLabel('Santa Maria Helper');logo.setObjectName('title');logo.setAttribute(Qt.WA_TransparentForMouseEvents,True);header.addWidget(logo);self.build_version=QLabel('v'+VERSION);self.build_version.setObjectName('buildVersion');self.build_version.setToolTip('Версия запущенного EXE');header.addWidget(self.build_version);header.addStretch()
+        header.addStretch();header_palm=QLabel();header_palm.setPixmap(QPixmap(str(ROOT/'palm_ui.png')).scaled(27,27,Qt.KeepAspectRatio,Qt.SmoothTransformation));header_palm.setAttribute(Qt.WA_TransparentForMouseEvents,True);header.addWidget(header_palm);logo=QLabel('Santa Maria Helper');logo.setObjectName('title');logo.setAttribute(Qt.WA_TransparentForMouseEvents,True);header.addWidget(logo);header.addStretch()
         minimize=QPushButton('—');minimize.setObjectName('windowAction');minimize.setFixedSize(34,28);minimize.clicked.connect(self.showMinimized);header.addWidget(minimize)
         close=QPushButton('✕');close.setObjectName('windowAction');close.setFixedSize(34,28);close.clicked.connect(self.close);header.addWidget(close)
         outer.addWidget(self.topbar)
@@ -695,25 +695,6 @@ class Window(QMainWindow):
         self.rule_tree.setMinimumHeight(75)
         self.rule_tree.setObjectName('categoryTree')
         search_layout.addWidget(self.rule_tree)
-        # Dedicated command levels under the search field, not in the global sidebar.
-        self.command_tiers=QListWidget()
-        self.command_tiers.setMaximumHeight(126)
-        self.command_tiers.setMinimumHeight(64)
-        self.command_tiers.setSpacing(3)
-        all_levels_item=QListWidgetItem('Все доступные уровни')
-        all_levels_item.setData(Qt.UserRole,None)
-        self.command_tiers.addItem(all_levels_item)
-        for tier_name,tier_value in LEVELS:
-            if tier_value<=self.account['level']:
-                count=sum(int(c.get('level',2) or 2)==tier_value for c in self.commands)
-                entry=QListWidgetItem(f'{tier_name}   ·   {count} команд')
-                entry.setData(Qt.UserRole,tier_value)
-                self.command_tiers.addItem(entry)
-        self.command_tiers.setCurrentRow(0)
-        self.command_tiers.currentRowChanged.connect(self.update_search)
-        self.command_tiers.setToolTip('Список уровней. Выберите уровень для фильтрации команд')
-        search_layout.addWidget(self.command_tiers)
-        self.command_tiers.setVisible(False)
         self.context_label=QLabel('Правила • все разделы');self.context_label.setObjectName('categorySummary');search_layout.addWidget(self.context_label)
         self.results=QListWidget()
         self.results.setWordWrap(True)
@@ -829,7 +810,6 @@ QLabel#modelStatus {background:#332419; color:#ffcd97; padding:12px; border-radi
 QScrollArea {border:0; background:transparent;}
 QScrollArea > QWidget > QWidget {background:transparent;}
 QLabel#title {color:#ffa347; font-size:20px; font-weight:700;}
-QLabel#buildVersion {color:#ffd18b; font-size:13px; font-weight:700; background:#382515; border:1px solid #7b502f; border-radius:7px; padding:4px 8px;}
 QLabel#heading {color:#ffe5ce; font-size:24px; font-weight:700;}
 QLabel#subtitle {color:#a99482; font-size:14px;}
 QLabel#credit {color:#ffab59; font-size:12px; font-weight:600;}
@@ -924,7 +904,7 @@ QScrollBar::add-line:vertical,QScrollBar::sub-line:vertical {height:0px;}
             self.context_label.setVisible(key=='rules')
             self.update_button.setVisible(key=='rules')
             self.rule_tree.setVisible(key=='rules')
-            self.command_tiers.setVisible(key=='commands')
+            self.search.setPlaceholderText('Поиск команды или описания…' if key=='commands' else 'Поиск по тексту, номеру, команде…')
             self.update_search()
         elif key in ('trigger','bind','macro'):
             self.page=key;self.stack.setCurrentWidget(self.binder_page);self.binder_heading.setText({'trigger':'Триггеры','bind':'Бинды','macro':'Макросы'}[key]);self.refresh_records()
@@ -932,7 +912,6 @@ QScrollBar::add-line:vertical,QScrollBar::sub-line:vertical {height:0px;}
         else:self.page=key;self.stack.setCurrentWidget(self.settings_page)
         if key not in ('rules','commands'):
             self.rule_tree.setVisible(False)
-            self.command_tiers.setVisible(False)
     def open_developer_settings(self):
         if self.account['level']<DEV_MIN_LEVEL:
             QMessageBox.warning(self,'Доступ запрещён','Только ЗГА, ГА и Спец админ имеют доступ к разделу.');return
@@ -1144,9 +1123,6 @@ QScrollBar::add-line:vertical,QScrollBar::sub-line:vertical {height:0px;}
         self.results.clear()
         query=self.search.text().strip()
         records=self.rules if self.mode=='rules' else self.commands
-        if self.mode=='commands' and self.command_tiers.currentItem() and self.command_tiers.currentItem().data(Qt.UserRole) is not None:
-            tier=self.command_tiers.currentItem().data(Qt.UserRole)
-            records=[c for c in records if int(c.get('level',2) or 2)==tier]
         if self.mode=='rules' and self.category:
             typ,val=self.category
             if typ=='section':records=[r for r in records if r.get('section')==val]
@@ -1192,13 +1168,47 @@ QScrollBar::add-line:vertical,QScrollBar::sub-line:vertical {height:0px;}
             self.context_label.setText(f'{label}  •  {len(self.filtered)} пунктов  •  {len(topics)} тем')
             self.context_label.setVisible(True)
         else:
-            self.filtered=[r for score,r in sorted(filtered,key=lambda x: (-x[0],x[1].get('command',''))) ] if query else sorted((r for _score,r in filtered),key=lambda r:r.get('command',''))
-            for index,r in enumerate(self.filtered):
-                row=QListWidgetItem(f"{r.get('command','')}\n{r.get('description','')}")
-                row.setData(Qt.UserRole,index)
-                row.setBackground(QBrush(QColor('#241c17')))
-                row.setToolTip('Двойной щелчок — описание команды')
-                self.results.addItem(row)
+            # Display the COMPLETE accessible command list, grouped under
+            # each admin level. New/empty levels remain visible so the list
+            # automatically fills as commands are added in the developer editor.
+            grouped={}
+            for score, command in filtered:
+                try:
+                    level=int(command.get('level',2) or 2)
+                except (ValueError,TypeError):
+                    level=2
+                grouped.setdefault(level,[]).append((score,command))
+            self.filtered=[]
+            for name,level in LEVELS:
+                if level>self.account['level']:
+                    continue
+                entries=grouped.get(level,[])
+                if query and not entries:
+                    continue
+                header=QListWidgetItem(f'УРОВЕНЬ {name}   ·   {len(entries)} команд')
+                header.setFlags(Qt.NoItemFlags)
+                header.setForeground(QBrush(QColor('#ffbe78')))
+                header.setBackground(QBrush(QColor('#302116')))
+                self.results.addItem(header)
+                entries.sort(key=(lambda x:(-x[0],str(x[1].get('command','')).casefold()))
+                             if query else (lambda x:str(x[1].get('command','')).casefold()))
+                if not entries:
+                    empty=QListWidgetItem('Команды этого уровня пока не добавлены')
+                    empty.setFlags(Qt.NoItemFlags)
+                    empty.setForeground(QBrush(QColor('#a99482')))
+                    self.results.addItem(empty)
+                for _score,command in entries:
+                    index=len(self.filtered)
+                    self.filtered.append(command)
+                    row=QListWidgetItem(f"{command.get('command','')}\n{command.get('description','')}")
+                    row.setData(Qt.UserRole,index)
+                    row.setBackground(QBrush(QColor('#241c17')))
+                    row.setToolTip('Двойной щелчок — полное описание команды')
+                    self.results.addItem(row)
+            if query and not self.filtered:
+                missing=QListWidgetItem('По запросу ничего не найдено')
+                missing.setFlags(Qt.NoItemFlags)
+                self.results.addItem(missing)
             self.context_label.setVisible(False)
         self.results.setUpdatesEnabled(True)
 
