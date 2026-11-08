@@ -74,7 +74,15 @@ class AccountStore:
             raise ValueError('Нельзя удалить последнего владельца')
         self.users=[x for x in self.users if x['id']!=uid];self.save()
 
-def can_use_command(level,command):
-    try:required=int(command.get('level',2))
-    except (ValueError,TypeError):required=2
-    return required<=int(level)
+def can_use_command(level, command):
+    """Show only commands explicitly assigned to the logged-in admin's RP level."""
+    try:
+        active_level = int(level)
+        assigned = command.get('available_levels')
+        if isinstance(assigned, list):
+            return active_level in {int(value) for value in assigned}
+        # Newly created developer commands without an explicit mapping are
+        # available only to the single level selected in the editor.
+        return active_level == int(command.get('level', 2))
+    except (ValueError, TypeError):
+        return False
